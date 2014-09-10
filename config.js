@@ -1,0 +1,1 @@
+var g_rootRest = "http://localhost:8080/";
