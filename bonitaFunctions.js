@@ -240,3 +240,53 @@ function openActivity(p_processName, p_processVersion, p_formName, p_taskId, p_w
         throw new Error(er.message);
     }
 }
+
+/**
+ * @name take
+ * @desc Hello
+ * @p_param{string} param
+ * @returns {boolean}
+ */
+function take(p_taskId, p_userId) {
+	try {
+		var url = g_rootRest + "/API/bpm/humanTask/" + p_taskId;
+
+		var tabSetting = {
+			type : 'PUT'
+			, contentType : 'application/json'
+			, dataType : 'text'
+		};
+
+		var tabInput = '{"assigned_id":"'+p_userId+'"}';
+
+		var retour = _callRest(url, tabSetting, tabInput);
+
+		if(retour == ""){
+			$('#btTake_'+p_taskId).hide();
+		}
+
+		return true;
+	} catch (er) {
+		console.log(0, "ERROR($.functionsApp.take):" + er.message);
+		return false;
+	}
+}
+
+ /**
+  * @name dotIt
+  * @desc Hello
+  * @p_param{string} param
+  * @returns {boolean}
+  */
+function dotIt(p_processName, p_processVersion, p_taskName, p_taskId) {
+	 try {
+		var strUrl = g_rootRest+"?ui=form&locale=en#form="+p_processName+"--"+p_processVersion+"--"+p_taskName+"$entry&task="+p_taskId+"&mode=form&assignTask=true";
+
+		document.location.href=strUrl;
+
+		 return true;
+	 } catch (er) {
+		 console.log(0, "ERROR($.functionsApp.dotIt):" + er.message);
+		 return false;
+	 }
+ }
